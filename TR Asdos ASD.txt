@@ -14,7 +14,7 @@ void main(){
     char Username[15],Password[10],SignUp_Username[15],SignUp_Password[10],Confirm_Username[15],Confirm_Password[10];
     
 	int i;
-	char u_name[][10]={"Ariel", "Sando", "Eren"}, pswd[][10]={"Ganteng", "Ganteng", "Cantik"};
+	char u_name[][10]={"Ariel", "Sando", "Ellen"}, pswd[][10]={"Ganteng", "Ganteng", "Cantik"};
 	
     gotoxy(20,1);
     printf("Please Log In");
