@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+
+void main() {
+    int Account,AccSuccess,CheckUsername,CheckPassword,UserName,PassWord,Menu;
+    char Username[15],Password[10],SignUp_Username[15],SignUp_Password[10],Confirm_Username[15],Confirm_Password[10];
+    Account:
+    printf("Welcome to Sabeb's Library! Do you have an account?\n1. Yes\n2. No\n3. Exit\nChoose: "); scanf("%d",&Account);
+    if(Account<1 || Account>3) {
+        system("cls");
+        goto Account;
+    } else if(Account==1) {
+        Login:
+        printf("Username: "); scanf("%s",&Username);
+        printf("Password: "); scanf("%s",&Password);
+
+        CheckUsername=strcmp(Username,SignUp_Username);
+        CheckPassword=strcmp(Password,SignUp_Password);
+
+        if(CheckUsername==0 && CheckPassword==0) {
+            system("cls");
+        } else {
+            system("cls");
+            printf("Incorrect Username or Password.\n");
+            goto Login;
+        }
+    } else if(Account==2){
+        system("cls");
+        printf("Create Account\n");
+        ConfirmUsername:
+        printf("Username: "); scanf("%s",&SignUp_Username);
+        printf("Confirm Username: "); scanf("%s",&Confirm_Username);
+        UserName=strcmp(SignUp_Username,Confirm_Username);
+        if(UserName!=0) {
+            system("cls");
+            goto ConfirmUsername;
+        }
+        ConfirmPassword:
+        printf("Password: "); scanf("%s",&SignUp_Password);
+        printf("Confirm Password: "); scanf("%s",&Confirm_Password);
+        PassWord=strcmp(SignUp_Password,Confirm_Password);
+        if(PassWord!=0) {
+            system("cls");
+            goto ConfirmPassword;
+        }
+        Success:
+        printf("Account successfully created. Press 1 to continue.\n"); scanf("%d",&AccSuccess);
+
+        if(AccSuccess==1) {
+            system("cls");
+            goto Account;
+        } else {
+            goto Success;
+        }
+    } else {
+        goto Exit;
+    }
+    MainMenu:
+    printf("Welcome to Sabeb's Library, %s!\n1. Create Book\n2. Read Book\n3. Update Book\n4. Delete Book\n5. Search Book\n6. Sort Book\n7. Log OutChoose: ",Username); scanf("%d",&Menu);
+    Exit:
+    printf("Thank you for coming!");
+}
