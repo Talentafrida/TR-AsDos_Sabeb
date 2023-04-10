@@ -12,7 +12,7 @@ void gotoxy(int x, int y){
 int Account, CheckUsername[2], CheckPassword[2];
 char Username[15], login_failed;
 
-int main(){    
+void main(){    
 	Login();
 }
 
@@ -64,7 +64,6 @@ void Login(){
 		    	system("cls");
 				login_failed=2;
 		        Login();
-//		    }else if(CheckUsername[i]==1 && CheckPassword[i]==0){
 		    }else if(CheckUsername[i]==1 && CheckPassword[i]==1){
 		        login_failed=1;
 			}
@@ -76,7 +75,7 @@ void Login(){
 }
 
 void Main_menu(){
-	int Menu;
+	char Menu;
 	
 	gotoxy(20,1);
     printf("Welcome to Sabeb's Library, %s!", Username);
@@ -97,24 +96,28 @@ void Main_menu(){
 	gotoxy(1,10);
 	printf("8. Exit");
 	gotoxy(1,12);
-	printf("Choose: "); scanf("%d", &Menu);
-	if(Menu == 1){
+	printf("Choose: "); scanf(" %c", &Menu);
+	
+	if(Menu == '1'){
 		Create_Book();
-	}else if(Menu == 2){
+	}else if(Menu == '2'){
 		Read_Book();
-	}else if(Menu == 3){
+	}else if(Menu == '3'){
 		Update_Book();
-	}else if(Menu == 4){
+	}else if(Menu == '4'){
 		Delete_Book();
-	}else if(Menu == 5){
+	}else if(Menu == '5'){
 		Search_Book();
-	}else if(Menu == 6){
+	}else if(Menu == '6'){
 		Sort_Book();
-	}else if(Menu == 7){
+	}else if(Menu == '7'){
 		system("cls");
-		Login();
-	}else if(Menu == 8){
+		main();
+	}else if(Menu == '8'){
 		exit(0);
+	}else{
+		system("cls");
+		Main_menu();
 	}
 }
 
