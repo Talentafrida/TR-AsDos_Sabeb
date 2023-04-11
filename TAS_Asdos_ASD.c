@@ -10,8 +10,8 @@ void gotoxy(int x, int y){
 }
 
 FILE *fp;
-int Account, CheckUsername[2], CheckPassword[2], totalbuku = 0;
-char Username[15], login_failed, namabuku[][50];
+int Account, CheckUsername[2], CheckPassword[2];
+char Username[15], login_failed;
 
 void main(){    
 	Login();
@@ -100,29 +100,17 @@ void Main_menu(){
 	printf("Choose: "); scanf(" %c", &Menu);
 	
 	if(Menu == '1'){
-		Create_Book();
-		system("cls");
-		Main_menu();
+		Add_Book();
 	}else if(Menu == '2'){
 		Read_Book();
-		system("cls");
-		Main_menu();
 	}else if(Menu == '3'){
 		Update_Book();
-		system("cls");
-		Main_menu();
 	}else if(Menu == '4'){
 		Delete_Book();
-		system("cls");
-		Main_menu();
 	}else if(Menu == '5'){
 		Search_Book();
-		system("cls");
-		Main_menu();
 	}else if(Menu == '6'){
 		Sort_Book();
-		system("cls");
-		Main_menu();
 	}else if(Menu == '7'){
 		system("cls");
 		main();
@@ -134,38 +122,8 @@ void Main_menu(){
 	}
 }
 
-void Create_Book(){
-	int i, j, val = 0;
-	
-    system("cls");
-    gotoxy(1,1);
-    printf("Masukkan Nama/Judul Buku Baru : ");
-	scanf(" %[^\n]", &namabuku[totalbuku]);
-	strcat(namabuku[totalbuku], ".txt");
-	
-	for(i = 0; i < totalbuku; i++){
-		if((strcmp(namabuku[i], namabuku[totalbuku]) == 1) && (strlen(namabuku[totalbuku]) != strlen(namabuku[i]))){
-			val = 0;
-		}
-		if((strcmp(namabuku[i], namabuku[totalbuku]) == 0) && (strlen(namabuku[totalbuku]) == strlen(namabuku[i]))){
-			val = i;
-			i = totalbuku;
-		}
-	}
-	
-	if(val == 0){
-		puts(namabuku[totalbuku]);
-		gotoxy(1,3);
-		printf("Buku Sudah Berhasil dibuat!");
-		fp = fopen(namabuku[totalbuku], "w");
-		fclose(fp);
-		totalbuku++;
-	}else if(val > 0){
-		gotoxy(1,3);
-		printf("\nSudah ada Nama/Judul Buku yang sama");
-	}
-	
-	getch();
+void Add_Book(){
+	int 
 }
 
 void Read_Book(){
