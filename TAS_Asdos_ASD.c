@@ -9,6 +9,7 @@ void gotoxy(int x, int y){
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
+FILE *fp;
 int Account, CheckUsername[2], CheckPassword[2];
 char Username[15], login_failed;
 
