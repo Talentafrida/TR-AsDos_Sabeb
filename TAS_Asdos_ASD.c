@@ -19,7 +19,7 @@ void main(){
 
 void Login(){
 	int i = 0, j = 0;
-	char Input, Password[7], username[][10]={"Ariel", "Sando", "Talenta"}, password[][10]={"Ganteng", "Ganteng", "Cantik"};
+	char Input, Password[7], username[][10]={"Ariel", "Sando", "Ellen"}, password[][10]={"Ganteng", "Ganteng", "Cantik"};
 	
     gotoxy(20,1);
     printf("Please Log In");
