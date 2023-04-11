@@ -85,7 +85,7 @@ void Main_menu(){
 	gotoxy(20,1);
     printf("Welcome to Sabeb's Library, %s!", Username);
 	gotoxy(1,3);
-	printf("1. Create Book");
+	printf("1. Add Book");
 	gotoxy(1,4);
 	printf("2. Read Book");
 	gotoxy(1,5);
