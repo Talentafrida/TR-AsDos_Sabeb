@@ -11,13 +11,14 @@ void gotoxy(int x, int y){
 
 FILE *fp;
 int Account, CheckUsername[2], CheckPassword[2], totalbuku = 1;
-char Username[15], login_failed, namabuku[][50];
+char Username[20], login_failed, namabuku[][50], Manual[100], ManualBook;
+char alamat[100] = "E:\\School Property\\Tugas\\C Files 3\\TAS_ASDOS_ASD\\"; // ganti alamat sesuai lokasi file ini disimpan
 
-struct Book {
+struct Book{
 	char Judul[30],Penerbit[20],Tanggal_Terbit[20],Tempat_Terbit[20],Pengarang[45];
-};
+}Book[10];
 
-void main(){    
+void main(){
 	Login();
 }
 
@@ -46,7 +47,7 @@ void Login(){
 			printf("\b \b");
 			Password[i] = "\b";
 			i-=1;
-		}else if(Input != 8){
+		}else if(Input != 8 && Input != 13){
 			if(i<0){
 				i=0;
 			}
@@ -69,12 +70,16 @@ void Login(){
 		    	system("cls");
 				login_failed=2;
 		        Login();
-		    }else if(CheckUsername[i]==1 && CheckPassword[i]==1){
+		    }else if(CheckUsername[i]==0 && strlen(Password) == 0){
+		    	system("cls");
+				login_failed=2;
+		        Login();
+			}else if(CheckUsername[i]==1 && CheckPassword[i]==1){
 		        login_failed=1;
 			}
 		}
 	}
-	login_failed=2;
+	login_failed=1;
 	system("cls");
 	Login();
 }
@@ -167,35 +172,155 @@ void Add_Book(){
 		totalbuku++;
 	}else if(val > 0){
 		gotoxy(1,3);
-		printf("\nBook already exists.");
+		printf("Book already exists.");
 	}
+	
 	getch();
 }
 
 void Read_Book(){
+	int nomor, i, y=3;
+	
 	system("cls");
-	printf("Select the book you want to read: "); scanf(" %[^\n]s",&namabuku[totalbuku]);
-	strcat(namabuku[totalbuku],".txt");
-	fp = fopen(namabuku[totalbuku], "r");
-	if(fp!=NULL) {
-		char read;
-		while((read=fgetc(fp))!=EOF) {
-			printf("%s",read);
+	
+	if(totalbuku == 1){
+		Isi_judul_sendiri();
+		
+		fp = fopen(Manual, "r");
+		
+		if(fp!=NULL){
+			char read;
+			
+			while((read=fgetc(fp))!=EOF){
+				printf("%s",read);
+			}
+		}else{
+			gotoxy(1,y);
+			printf("Book not found.");
 		}
-	} else {
-		printf("Book not found.");
+	}else{
+		gotoxy(1,1);
+		printf("Daftar Buku :");
+		
+		for(i=1; i<totalbuku; i++){
+			gotoxy(1,y);
+	    	printf("%i. %s", i, namabuku[i]);
+	    	y++;
+		}
+		
+		y++;
+		gotoxy(1,y);
+		printf("Select the book you want to read: ");
+		scanf(" %i", &nomor);
+		
+		y++;
+		
+		fp = fopen(namabuku[nomor], "r");
+		
+		if(fp!=NULL){
+			char read;
+			
+			while((read=fgetc(fp))!=EOF){
+				printf("%s",read);
+			}
+		}else{
+			gotoxy(1,y);
+			printf("Book not found.");
+		}
 	}
+	
+	y+=2;
+	gotoxy(1,y);
 	printf("\nPress Enter to go back to the main menu.");
+	
 	fclose(fp);
 	getch();
 }
 
 void Update_Book(){
+	int a, j, r, y=3;
+    char text[150];
+    
+	if(totalbuku == 1){
+		system("cls");
+		
+		printf("Tekan '0' untuk memasukan judul buku");
+		gotoxy(0,10);
+	}else{
+		system("cls");
+		
+		gotoxy(1,1);
+		printf("Update Isi Buku");
+		
+		for(r = 1; r < totalbuku; r++){
+			gotoxy(1,y);
+	    	printf("%i. %s", r, namabuku[r]);
+	    	y++;
+		}
+		
+		printf("\nPilihan : ");
+	}
+	
+	a = getch();
+	printf("%c ", a);
+	
+	if(a == 49) a = 1;
+	else if(a == 50) a = 2;
+	else if(a == 51) a = 3;
+	else if(a == 52) a = 4;
+	else if(a == 53) a = 5;
+	else if(a == 54) a = 6;
+	else if(a == 55) a = 7;
+	else if(a == 56) a = 8;
+	else if(a == 57) a = 9;
+	
+	if(a == '0'){
+		Isi_judul_sendiri();
+		
+    	system("cls");
+    	
+	    fp = fopen(Manual, "a");
+	    
+	    printf("\nIsi : \n\n");
+		scanf(" %[^\n]", text);
+		
+		strcat(text, "\n");
+		
+		fprintf(fp, "%s", text);
+		
+	    fclose(fp);
+	    
+	    printf("\n\nAdd Data Sukses!!!");
+	    getch();
+	}else if(totalbuku != 1 && a < totalbuku){
+		system("cls");
+		
+		fp = fopen(namabuku[a], "a");
+		
+		gotoxy(1,1);
+		printf("\nIsi : \n\n");
+		scanf(" %[^\n]s", text);
+		
+		strcat(text, "\n");
+		
+		fprintf(fp, "%s", text);
+		
+	    fclose(fp);
+	    
+	    printf("\n\nAdd Data Sukses!!!");
+	    getch();
+	}else if(totalbuku != 1){
+		gotoxy(10,10);
+		printf("Salah Input");
+		getch();
+	}
+	
 	printf("Author: "); scanf(" %[^\n]s",&Data.Pengarang);
 	printf("Publisher: "); scanf(" %[^\n]s",&Data.Penerbit);
 	printf("Publication Date: "); scanf(" %[^\n]s",&Data.Tanggal_Terbit);
 	printf("PLace of Publication: "); scanf(" %[^\n]s",&Data.Tempat_Terbit);
 	fprintf("Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n",namabuku[totalbuku],Data.Pengarang,Data.Penerbit,Data.Tanggal_Terbit,Data.Tempat_Terbit);
+	
 }
 
 void Delete_Book(){
@@ -209,13 +334,16 @@ void Search_Book(){
 void Sort_Book(){
 	int Sort,i,j;
 	char So[50];
+	
 	system("cls");
+	
 	Sort:
 	printf("Sort Book\n1. Ascending\n2. Descending\nChoose: "); scanf("%d",&Sort);
+	
 	if(Sort<1 || Sort>2) {
 		system("cls");
 		goto Sort;
-	} else if(Sort==1) {
+	}else if(Sort==1){
 		for(i = 1; i <= totalbuku; i++) {
 			for(j = i + 1; j <= totalbuku; j++) {
 				if(strcmp(namabuku[i],namabuku[j])>0) {
@@ -229,7 +357,14 @@ void Sort_Book(){
 		for(i=1; i <= totalbuku; i++) {
 			puts(namabuku[i]);
 		}
-	} else {
-		printf("
 	}
+}
+
+void Isi_judul_sendiri(){
+	memset(Manual, 0, sizeof(Manual));
+	system("cls");
+	printf("Masukkan Nama Buku : \n"); scanf(" %s", &ManualBook);
+	strcat(Manual, alamat);
+	strcat(Manual, ManualBook);
+	strcat(Manual, ".txt");
 }
