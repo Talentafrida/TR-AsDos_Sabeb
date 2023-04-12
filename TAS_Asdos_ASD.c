@@ -11,7 +11,7 @@ void gotoxy(int x, int y){
 
 FILE *fp;
 int Account, CheckUsername[2], CheckPassword[2], totalbuku = 1;
-char Username[20], login_failed, namabuku[][50], Manual[100], ManualBook;
+char Username[20], login_failed, namabuku[][50], Manual[100], ManualBook[100];
 char alamat[100] = "E:\\School Property\\Tugas\\C Files 3\\TAS_ASDOS_ASD\\"; // ganti alamat sesuai lokasi file ini disimpan
 
 struct Book{
@@ -179,22 +179,20 @@ void Add_Book(){
 }
 
 void Read_Book(){
-	int nomor, i, y=3;
-	char read[100];
+	int i, y=3;
+	char read, nomor;
 	
 	system("cls");
 	
 	if(totalbuku == 1){
 		Isi_judul_sendiri();
-		
 		fp = fopen(Manual, "r");
 		
 		if(fp!=NULL){
-//			while((read=fgetc(fp))!=EOF){
-//				printf("%s",read);
-//			}
-			while (fread(read, sizeof(char), 50, fp)){
-	        	printf("%s", read);
+			printf("%s", Manual);
+			
+			while((read=fgetc(fp))!=EOF){
+				printf("%c",read);
 			}
 		}
 		else{
@@ -214,14 +212,25 @@ void Read_Book(){
 		y++;
 		gotoxy(1,y);
 		printf("Select the book you want to read: ");
-		scanf(" %i", &nomor);
+		
+		nomor = getch();
+		printf("%c ", nomor);
+		
+		if(nomor == 49) nomor = 1;
+		else if(nomor == 50) nomor = 2;
+		else if(nomor == 51) nomor = 3;
+		else if(nomor == 52) nomor = 4;
+		else if(nomor == 53) nomor = 5;
+		else if(nomor == 54) nomor = 6;
+		else if(nomor == 55) nomor = 7;
+		else if(nomor == 56) nomor = 8;
+		else if(nomor == 57) nomor = 9;
+		else nomor = 0;
 		
 		y++;
 		
 		
 		if(fp!=NULL){
-			char read;
-			
 			fp = fopen(namabuku[nomor], "r");
 			
 			while((read=fgetc(fp))!=EOF){
