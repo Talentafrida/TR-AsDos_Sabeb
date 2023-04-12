@@ -315,11 +315,11 @@ void Update_Book(){
 		getch();
 	}
 	
-	printf("Author: "); scanf(" %[^\n]s",&Data.Pengarang);
-	printf("Publisher: "); scanf(" %[^\n]s",&Data.Penerbit);
-	printf("Publication Date: "); scanf(" %[^\n]s",&Data.Tanggal_Terbit);
-	printf("PLace of Publication: "); scanf(" %[^\n]s",&Data.Tempat_Terbit);
-	fprintf("Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n",namabuku[totalbuku],Data.Pengarang,Data.Penerbit,Data.Tanggal_Terbit,Data.Tempat_Terbit);
+	printf("Author: "); scanf(" %[^\n]s",&Book->Pengarang);
+	printf("Publisher: "); scanf(" %[^\n]s",&Book->Penerbit);
+	printf("Publication Date: "); scanf(" %[^\n]s",&Book->Tanggal_Terbit);
+	printf("PLace of Publication: "); scanf(" %[^\n]s",&Book->Tempat_Terbit);
+	fprintf("Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n",namabuku[totalbuku],Book->Pengarang,Book->Penerbit,Book->Tanggal_Terbit,Book->Tempat_Terbit);
 	
 }
 
