@@ -160,20 +160,33 @@ void Add_Book(){
 	if(val == 0){
 		puts(namabuku[totalbuku]);
 		gotoxy(1,3);
-		printf("Buku Sudah Berhasil dibuat!");
+		printf("Book successfully created.");
 		fp = fopen(namabuku[totalbuku], "w");
 		fclose(fp);
 		totalbuku++;
 	}else if(val > 0){
 		gotoxy(1,3);
-		printf("\nSudah ada Nama/Judul Buku yang sama");
+		printf("\nBook already exists.");
 	}
-	
 	getch();
 }
 
 void Read_Book(){
-	
+	system("cls");
+	printf("Select the book you want to read: "); scanf(" %[^\n]s",&namabuku[totalbuku]);
+	strcat(namabuku[totalbuku],".txt");
+	fp = fopen(namabuku[totalbuku], "r");
+	if(fp!=NULL) {
+		char read;
+		while((read=fgetc(fp))!=EOF) {
+			printf("%s",read);
+		}
+	} else {
+		printf("Book not found.");
+	}
+	printf("\nPress Enter to go back to the main menu.");
+	fclose(fp);
+	getch();
 }
 
 void Update_Book(){
