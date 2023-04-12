@@ -58,8 +58,6 @@ void Login(){
 	}
 	Password[i] = '\0';
 	
-	printf("%s", Password);
-	
 	if((strcmp(Username, "admin") == 0) && (strcmp(Password, "cantik") == 0)){
 		login_failed = 0;
 		system("cls");
