@@ -146,11 +146,6 @@ void Add_Book(){
     gotoxy(1,1);
     printf("New Book Title : ");
 	scanf(" %[^\n]s", &namabuku[totalbuku]);
-	printf("Author: "); scanf(" %[^\n]s",&Data.Pengarang);
-	printf("Publisher: "); scanf(" %[^\n]s",&Data.Penerbit);
-	printf("Publication Date: "); scanf(" %[^\n]s",&Data.Tanggal_Terbit);
-	printf("PLace of Publication: "); scanf(" %[^\n]s",&Data.Tempat_Terbit);
-	
 	strcat(namabuku[totalbuku], ".txt");
 	
 	for(i = 1; i < totalbuku; i++){
@@ -167,7 +162,6 @@ void Add_Book(){
 		puts(namabuku[totalbuku]);
 		gotoxy(1,3);
 		printf("Book successfully created.");
-		fprintf("Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n",namabuku[totalbuku],Data.Pengarang,Data.Penerbit,Data.Tanggal_Terbit,Data.Tempat_Terbit);
 		fp = fopen(namabuku[totalbuku], "w");
 		fclose(fp);
 		totalbuku++;
@@ -197,7 +191,11 @@ void Read_Book(){
 }
 
 void Update_Book(){
-	
+	printf("Author: "); scanf(" %[^\n]s",&Data.Pengarang);
+	printf("Publisher: "); scanf(" %[^\n]s",&Data.Penerbit);
+	printf("Publication Date: "); scanf(" %[^\n]s",&Data.Tanggal_Terbit);
+	printf("PLace of Publication: "); scanf(" %[^\n]s",&Data.Tempat_Terbit);
+	fprintf("Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n",namabuku[totalbuku],Data.Pengarang,Data.Penerbit,Data.Tanggal_Terbit,Data.Tempat_Terbit);
 }
 
 void Delete_Book(){
