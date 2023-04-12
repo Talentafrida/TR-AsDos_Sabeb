@@ -180,6 +180,7 @@ void Add_Book(){
 
 void Read_Book(){
 	int nomor, i, y=3;
+	char read[100];
 	
 	system("cls");
 	
@@ -189,13 +190,15 @@ void Read_Book(){
 		fp = fopen(Manual, "r");
 		
 		if(fp!=NULL){
-			char read;
-			
-			while((read=fgetc(fp))!=EOF){
-				printf("%s",read);
+//			while((read=fgetc(fp))!=EOF){
+//				printf("%s",read);
+//			}
+			while (fread(read, sizeof(char), 50, fp)){
+	        	printf("%s", read);
 			}
-		}else{
-			gotoxy(1,y);
+		}
+		else{
+			gotoxy(1,3);
 			printf("Book not found.");
 		}
 	}else{
@@ -215,13 +218,14 @@ void Read_Book(){
 		
 		y++;
 		
-		fp = fopen(namabuku[nomor], "r");
 		
 		if(fp!=NULL){
 			char read;
 			
+			fp = fopen(namabuku[nomor], "r");
+			
 			while((read=fgetc(fp))!=EOF){
-				printf("%s",read);
+				printf("%c",read);
 			}
 		}else{
 			gotoxy(1,y);
@@ -349,6 +353,8 @@ void Sort_Book(){
 			puts(namabuku[i]);
 		}
 	}
+	
+	system("pause");
 }
 
 void Isi_judul_sendiri(){
