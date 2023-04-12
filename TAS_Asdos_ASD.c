@@ -13,7 +13,7 @@ FILE *fp;
 int Account, CheckUsername[2], CheckPassword[2], totalbuku = 1;
 char Username[15], login_failed, namabuku[][50];
 
-struct Buku {
+struct Book {
 	char Judul[30],Penerbit[20],Tanggal_Terbit[20],Tempat_Terbit[20],Pengarang[45];
 };
 
@@ -140,11 +140,17 @@ void Main_menu(){
 
 void Add_Book(){
 	int i, j, val = 0;
+	struct Book Data;
 	
     system("cls");
     gotoxy(1,1);
-    printf("Masukkan Nama/Judul Buku Baru : ");
+    printf("New Book Title : ");
 	scanf(" %[^\n]s", &namabuku[totalbuku]);
+	printf("Author: "); scanf(" %[^\n]s",&Data.Pengarang);
+	printf("Publisher: "); scanf(" %[^\n]s",&Data.Penerbit);
+	printf("Publication Date: "); scanf(" %[^\n]s",&Data.Tanggal_Terbit);
+	printf("PLace of Publication: "); scanf(" %[^\n]s",&Data.Tempat_Terbit);
+	
 	strcat(namabuku[totalbuku], ".txt");
 	
 	for(i = 1; i < totalbuku; i++){
@@ -161,6 +167,7 @@ void Add_Book(){
 		puts(namabuku[totalbuku]);
 		gotoxy(1,3);
 		printf("Book successfully created.");
+		fprintf("Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n",namabuku[totalbuku],Data.Pengarang,Data.Penerbit,Data.Tanggal_Terbit,Data.Tempat_Terbit);
 		fp = fopen(namabuku[totalbuku], "w");
 		fclose(fp);
 		totalbuku++;
