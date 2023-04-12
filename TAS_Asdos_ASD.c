@@ -164,14 +164,15 @@ void Add_Book(){
 	}
 	
 	if(val == 0){
+		gotoxy(1,2);
 		puts(namabuku[totalbuku]);
-		gotoxy(1,3);
+		gotoxy(1,4);
 		printf("Book successfully created.");
 		fp = fopen(namabuku[totalbuku], "w");
 		fclose(fp);
 		totalbuku++;
 	}else if(val > 0){
-		gotoxy(1,3);
+		gotoxy(1,4);
 		printf("Book already exists.");
 	}
 	
@@ -179,7 +180,7 @@ void Add_Book(){
 }
 
 void Read_Book(){
-	int i, y=3;
+	int i, y=3, isi=0;
 	char read, nomor;
 	
 	system("cls");
@@ -193,10 +194,15 @@ void Read_Book(){
 			
 			while((read=fgetc(fp))!=EOF){
 				printf("%c",read);
+				isi++;
 			}
-		}
-		else{
-			gotoxy(1,3);
+			if(isi == 0){
+				y+=2;
+				gotoxy(1,y);
+				printf("(Buku ini belum ada isinya)");
+			}
+		}else{
+			gotoxy(1,y);
 			printf("Book not found.");
 		}
 	}else{
@@ -229,12 +235,18 @@ void Read_Book(){
 		
 		y++;
 		
+		fp = fopen(namabuku[nomor], "r");
 		
 		if(fp!=NULL){
-			fp = fopen(namabuku[nomor], "r");
 			
 			while((read=fgetc(fp))!=EOF){
 				printf("%c",read);
+				isi++;
+			}
+			y+=2;
+			if(isi == 0){
+				gotoxy(1,y);
+				printf("(Buku ini belum ada isinya)");
 			}
 		}else{
 			gotoxy(1,y);
@@ -244,7 +256,7 @@ void Read_Book(){
 	
 	y+=2;
 	gotoxy(1,y);
-	printf("\nPress Enter to go back to the main menu.");
+	printf("Press Enter to go back to the main menu.");
 	
 	fclose(fp);
 	getch();
@@ -255,10 +267,25 @@ void Update_Book(){
     char text[150];
     
 	if(totalbuku == 1){
-		system("cls");
+		Isi_judul_sendiri();
 		
-		printf("Tekan '0' untuk memasukan judul buku");
-		gotoxy(0,10);
+		fp = fopen(Manual, "r");
+		
+		if(fp!=NULL){
+			fp = fopen(Manual, "w");
+			printf("Author: "); scanf(" %[^\n]s",&Book->Pengarang);
+			printf("Publisher: "); scanf(" %[^\n]s",&Book->Penerbit);
+			printf("Publication Date: "); scanf(" %[^\n]s",&Book->Tanggal_Terbit);
+			printf("PLace of Publication: "); scanf(" %[^\n]s",&Book->Tempat_Terbit);
+			fprintf(fp,"Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n", namabuku[a],Book->Pengarang,Book->Penerbit,Book->Tanggal_Terbit,Book->Tempat_Terbit);
+			
+		    
+		    printf("\n\nAdd Data Sukses!!!");
+		}else{
+			gotoxy(1,y);
+			printf("Book not found.");
+		}
+		fclose(fp);
 	}else{
 		system("cls");
 		
@@ -292,7 +319,7 @@ void Update_Book(){
 		
     	system("cls");
     	
-	    fp = fopen(Manual, "a");
+	    fp = fopen(Manual, "w");
 	    
 	    printf("\nIsi : \n\n");
 		scanf(" %[^\n]", text);
@@ -308,7 +335,7 @@ void Update_Book(){
 	}else if(totalbuku != 1 && a < totalbuku){
 		system("cls");
 		
-		fp = fopen(namabuku[a], "a");
+		fp = fopen(namabuku[a], "w");
 				
 		printf("Author: "); scanf(" %[^\n]s",&Book->Pengarang);
 		printf("Publisher: "); scanf(" %[^\n]s",&Book->Penerbit);
@@ -328,7 +355,80 @@ void Update_Book(){
 }
 
 void Delete_Book(){
+	int ret, a, r, y=3, i, j;
+    
+    if(totalbuku == 1){
+		Isi_judul_sendiri();
+		
+		fp = fopen(Manual, "r");
+		
+		if(fp!=NULL){
+			printf("%s", Manual);
+			
+			ret = remove(Manual);
+	    	
+	    	if(ret == 0) {
+		        printf("\nFile deleted successfully");
+		    }else{
+		        printf("\nError: unable to delete the file");
+		    }
+		}
+		else{
+			gotoxy(1,4);
+			printf("Book not found.");
+		}
+	}else{
+		system("cls");
+		
+		gotoxy(1,1);
+		printf("Hapus Buku");
+		
+		for(r = 1; r < totalbuku; r++){
+			gotoxy(1,y);
+	    	printf("%i. %s", r, namabuku[r]);
+	    	y++;
+		}
+		
+		printf("\nPilihan : ");
+	}
 	
+	a = getch();
+	printf("%c ", a);
+	
+	if(a==49) a=1;
+	else if(a==50) a=2;
+	else if(a==51) a=3;
+	else if(a==52) a=4;
+	else if(a==53) a=5;
+	else if(a==54) a=6;
+	else if(a==55) a=7;
+	else if(a==56) a=8;
+	else if(a==57) a=9;
+	
+	if(totalbuku != 1 && a < totalbuku){
+		ret = remove(namabuku[a]);
+		printf("\n\nNama File yang ingin Dihapus : \"%s\"", namabuku[a]);
+		
+		if(ret == 0) {
+			for(r = 1; r <= totalbuku; r++){
+				if(r >= a && r < totalbuku){
+					for(i = 0; i <= strlen(namabuku[r]); i++){
+						namabuku[r][i] = namabuku[r+1][i];
+					}
+				}else if(r == totalbuku){
+					memset(namabuku[totalbuku], 0, sizeof(namabuku[totalbuku]));
+				}
+			}
+	        printf("\n\nFile deleted successfully");
+			totalbuku--;
+	    }else{
+	        printf("\n\nError: unable to delete the file");
+	    }
+	    getch();
+	}else if(totalbuku != 1){
+		printf("\n\n\t\tSalah Input");
+		getch();
+	}
 }
 
 void Search_Book(){
@@ -336,7 +436,7 @@ void Search_Book(){
 }
 
 void Sort_Book(){
-	int Sort,i,j;
+	int i,j, Sort;
 	char So[50];
 	
 	system("cls");
@@ -357,7 +457,7 @@ void Sort_Book(){
 				}
 			}
 		}
-		printf("Sorted Books (Ascending):\n");
+		printf("\nSorted Books (Ascending):\n");
 		for(i=1; i <= totalbuku; i++) {
 			puts(namabuku[i]);
 		}
