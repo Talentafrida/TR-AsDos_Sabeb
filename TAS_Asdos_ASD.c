@@ -296,14 +296,12 @@ void Update_Book(){
 		system("cls");
 		
 		fp = fopen(namabuku[a], "a");
-		
-		gotoxy(1,1);
-		printf("\nIsi : \n\n");
-		scanf(" %[^\n]s", text);
-		
-		strcat(text, "\n");
-		
-		fprintf(fp, "%s", text);
+				
+		printf("Author: "); scanf(" %[^\n]s",&Book->Pengarang);
+		printf("Publisher: "); scanf(" %[^\n]s",&Book->Penerbit);
+		printf("Publication Date: "); scanf(" %[^\n]s",&Book->Tanggal_Terbit);
+		printf("PLace of Publication: "); scanf(" %[^\n]s",&Book->Tempat_Terbit);
+		fprintf(fp,"Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n", namabuku[a],Book->Pengarang,Book->Penerbit,Book->Tanggal_Terbit,Book->Tempat_Terbit);
 		
 	    fclose(fp);
 	    
@@ -314,13 +312,6 @@ void Update_Book(){
 		printf("Salah Input");
 		getch();
 	}
-	
-	printf("Author: "); scanf(" %[^\n]s",&Book->Pengarang);
-	printf("Publisher: "); scanf(" %[^\n]s",&Book->Penerbit);
-	printf("Publication Date: "); scanf(" %[^\n]s",&Book->Tanggal_Terbit);
-	printf("PLace of Publication: "); scanf(" %[^\n]s",&Book->Tempat_Terbit);
-	fprintf("Title: %s\nAuthor: %s\nPublisher: %s\nPublication Date: %s\nPLace of Publication: %s\n",namabuku[totalbuku],Book->Pengarang,Book->Penerbit,Book->Tanggal_Terbit,Book->Tempat_Terbit);
-	
 }
 
 void Delete_Book(){
