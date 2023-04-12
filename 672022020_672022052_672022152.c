@@ -10,8 +10,8 @@ void gotoxy(int x, int y){
 }
 
 FILE *fp;
-int Account, CheckUsername[2], CheckPassword[2], totalbuku = 1;
-char Username[20], login_failed, namabuku[][50], Manual[100], ManualBook[100];
+int Account, CheckUsername, CheckPassword[2], totalbuku = 1;
+char Username[20], login_failed = 0, namabuku[][50], Manual[100], ManualBook[100];
 char alamat[100] = "E:\\School Property\\Tugas\\C Files 3\\TAS_ASDOS_ASD\\"; // ganti alamat sesuai lokasi file ini disimpan
 
 struct Book{
@@ -22,14 +22,37 @@ void main(){
 	Login();
 }
 
+void Animation(){
+	int end, count, i, j, x=10, y=5;
+	
+	while (count!=138){
+		gotoxy(x, y);
+		printf("%c", 475);
+		
+		count++;
+		
+		if(count<50){
+			x++;
+		}else if(count>=50 && count < 70){
+			y++;
+		}else if(count>= 70 && count < 119){
+			x--;
+		}else if(count>= 119 && count < 138){
+			y--;
+		}
+		
+		for (i=1;i<=4000;i++)
+			for (j=1;j<=4000;j++);
+	}
+}
+
 void Login(){
 	int i = 0, j = 0;
 	char Input, Password[10];
 	
-    gotoxy(20,1);
-    printf("Please Log In");
-	
-	if(login_failed==1){
+	if(login_failed==0){
+		Animation();
+	}else if(login_failed==1){
 		gotoxy(1,8);
 		printf("Incorrect Password");
 	}else if(login_failed==2){
@@ -37,9 +60,12 @@ void Login(){
 		printf("Username did not match to any Account");
 	}
 	
-	gotoxy(5,4);
+    gotoxy(28,8);
+    printf("Please Log In");
+	
+	gotoxy(15,15);
     printf("Username: "); scanf(" %s", &Username);
-    gotoxy(5,5);
+    gotoxy(15,16);
 	printf("Password: ");
 	
 	while((Input = getch()) != 13){
