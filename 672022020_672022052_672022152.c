@@ -22,7 +22,7 @@ void main(){
 	Login();
 }
 
-void Animation(){
+void Login_Animation(){
 	int end, count, i, j, x=10, y=5;
 	
 	while (count!=176){
@@ -48,8 +48,10 @@ void Animation(){
 			y=11;
 		}
 		
-		for (i=1;i<=4000;i++)
-			for (j=1;j<=4000;j++);
+		if(login_failed==0){
+			for (i=1;i<=4000;i++)
+				for (j=1;j<=4000;j++);
+		}
 	}
 }
 
@@ -57,13 +59,13 @@ void Login(){
 	int i = 0, j = 0;
 	char Input, Password[10];
 	
-	if(login_failed==0){
-		Animation();
-	}else if(login_failed==1){
-		gotoxy(1,8);
+	Login_Animation();
+	
+	if(login_failed==1){
+		gotoxy(25,19);
 		printf("Incorrect Password");
 	}else if(login_failed==2){
-		gotoxy(1,8);
+		gotoxy(17,19);
 		printf("Username did not match to any Account");
 	}
 	
