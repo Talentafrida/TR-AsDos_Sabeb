@@ -207,5 +207,29 @@ void Search_Book(){
 }
 
 void Sort_Book(){
-	
+	int Sort,i,j;
+	char So[50];
+	system("cls");
+	Sort:
+	printf("Sort Book\n1. Ascending\n2. Descending\nChoose: "); scanf("%d",&Sort);
+	if(Sort<1 || Sort>2) {
+		system("cls");
+		goto Sort;
+	} else if(Sort==1) {
+		for(i = 1; i <= totalbuku; i++) {
+			for(j = i + 1; j <= totalbuku; j++) {
+				if(strcmp(namabuku[i],namabuku[j])>0) {
+					strcpy(So,namabuku[i]);
+					strcpy(namabuku[i],namabuku[j]);
+					strcpy(namabuku[j],So);
+				}
+			}
+		}
+		printf("Sorted Books (Ascending):\n");
+		for(i=1; i <= totalbuku; i++) {
+			puts(namabuku[i]);
+		}
+	} else {
+		printf("
+	}
 }
