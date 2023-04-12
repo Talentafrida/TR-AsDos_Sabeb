@@ -464,7 +464,34 @@ void Delete_Book(){
 }
 
 void Search_Book(){
+		y++;
+	gotoxy(1,y);
+	printf("Select the book you want to search: ");
+	scanf(" %i", &nomor);
+	nomor = getch();
+	printf("%c ", nomor);
+	if(nomor == 49) nomor = 1;
+	else if(nomor == 50) nomor = 2;
+	else if(nomor == 51) nomor = 3;
+	else if(nomor == 52) nomor = 4;
+	else if(nomor == 53) nomor = 5;
+	else if(nomor == 54) nomor = 6;
+	else if(nomor == 55) nomor = 7;
+	else if(nomor == 56) nomor = 8;
+	else if(nomor == 57) nomor = 9;
+	else nomor = 0;
+
+	y++;
+	int idx=0,pos=-1;
+	for (idx = 0 ; idx < sizeof(namabuku) ; idx++){
+		if (strcmp(namabuku[idx],namabuku[nomor])==0){
+			pos = idx;
+			break;
+		}
+	}
 	
+	print("%s\n",namabuku[pos]);
+	return;
 }
 
 void Sort_Book(){
