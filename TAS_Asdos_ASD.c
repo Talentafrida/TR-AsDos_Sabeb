@@ -24,17 +24,17 @@ void main(){
 
 void Login(){
 	int i = 0, j = 0;
-	char Input, Password[7], username[][10]={"Ariel", "Sando", "Ellen"}, password[][10]={"Ganteng", "Ganteng", "Cantik"};
+	char Input, Password[10];
 	
     gotoxy(20,1);
     printf("Please Log In");
 	
 	if(login_failed==1){
 		gotoxy(1,8);
-		printf("Username did not match to any Account");
+		printf("Incorrect Password");
 	}else if(login_failed==2){
 		gotoxy(1,8);
-		printf("Incorrect Password");
+		printf("Username did not match to any Account");
 	}
 	
 	gotoxy(5,4);
@@ -57,31 +57,30 @@ void Login(){
 		}
 	}
 	Password[i] = '\0';
-
-	for(i=0; i<3; i++){
-		CheckUsername[i]=strcmp(Username,username[i]);
-        CheckPassword[i]=strcmp(Password,password[i]);
-        if(CheckUsername[i] == 0 && CheckPassword[i] == 0){
-	        system("cls");
-	        login_failed=0;
-	        Main_menu();
-		}else{
-			if(CheckUsername[i]==0 && CheckPassword[i]==1){
-		    	system("cls");
-				login_failed=2;
-		        Login();
-		    }else if(CheckUsername[i]==0 && strlen(Password) == 0){
-		    	system("cls");
-				login_failed=2;
-		        Login();
-			}else if(CheckUsername[i]==1 && CheckPassword[i]==1){
-		        login_failed=1;
-			}
-		}
+	
+	printf("%s", Password);
+	
+	if((strcmp(Username, "admin") == 0) && (strcmp(Password, "cantik") == 0)){
+		login_failed = 0;
+		system("cls");
+		Main_menu();
+	}else if((strcmp(Username, "admin") == 0) && (strcmp(Password, "ganteng") == 0)){
+		login_failed = 0;
+		system("cls");
+		Main_menu();
+	}else if (strcmp(Username, "admin") != 0){
+		login_failed = 2;
+		system("cls");
+		Login();
+	}else if(strcmp(Password, "cantik") != 0){
+		login_failed = 1;
+		system("cls");
+		Login();
+	}else if(strcmp(Password, "ganteng") != 0){
+		login_failed = 1;
+		system("cls");
+		Login();
 	}
-	login_failed=1;
-	system("cls");
-	Login();
 }
 
 void Main_menu(){
