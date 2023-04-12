@@ -25,7 +25,7 @@ void main(){
 void Animation(){
 	int end, count, i, j, x=10, y=5;
 	
-	while (count!=138){
+	while (count!=176){
 		gotoxy(x, y);
 		printf("%c", 475);
 		
@@ -33,12 +33,19 @@ void Animation(){
 		
 		if(count<50){
 			x++;
-		}else if(count>=50 && count < 70){
+		}else if(count>=50 && count < 65){
 			y++;
-		}else if(count>= 70 && count < 119){
+		}else if(count>= 65 && count < 114){
 			x--;
-		}else if(count>= 119 && count < 138){
+		}else if(count>= 114 && count < 128){
 			y--;
+		}else if(count>= 128 && count < 176){
+			x++;
+		}
+		
+		if(count == 128){
+			x=11;
+			y=11;
 		}
 		
 		for (i=1;i<=4000;i++)
@@ -63,9 +70,9 @@ void Login(){
     gotoxy(28,8);
     printf("Please Log In");
 	
-	gotoxy(15,15);
+	gotoxy(25,15);
     printf("Username: "); scanf(" %s", &Username);
-    gotoxy(15,16);
+    gotoxy(25,16);
 	printf("Password: ");
 	
 	while((Input = getch()) != 13){
